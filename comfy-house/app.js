@@ -3,6 +3,7 @@
 const cartBtn = document.querySelector('.cart-btn');
 const closeCartBtn = document.querySelector('.close-cart');
 const clearCartBtn = document.querySelector('.clear-cart');
+const cartDOM = document.querySelector('.cart');
 const cartOverlay = document.querySelector('.cart-overlay');
 const cartItems = document.querySelector('.cart-items');
 const cartTotal = document.querySelector('.cart-total');
@@ -87,6 +88,12 @@ class UI {
 
         // set cart values
         this.setCartValues(cart);
+
+        // add cart to ui
+        this.addCartItem(cartItem);
+
+        // show the cart
+        this.showCart();
       });
     });
   }
@@ -103,6 +110,46 @@ class UI {
     cartItems.textContent = itemsTotal;
     console.log(cartTotal, cartItems);
   }
+  addCartItem(item) {
+    cartContent.insertAdjacentHTML(
+      'afterbegin',
+      `
+      <div class="cart-item">
+        <img src="${item.image}" alt="${item.title}" />
+        <div>
+          <h4>${item.title}</h4>
+          <h5>$${item.price}</h5>
+          <span class="remove-item" data-id="${item.id}">remove</span>
+        </div>
+        <div>
+          <i class="fa-solid fa-chevron-up" data-id="${item.id}"></i>
+          <p class="item-amount">${item.amount}</p>
+          <i class="fa-solid fa-chevron-down" data-id="${item.id}"></i>
+        </div>
+      </div>
+    `
+    );
+    console.log(cartContent);
+  }
+  toggleCart() {
+    cartOverlay.classList.toggle('transparentBcg');
+    cartDOM.classList.toggle('showCart');
+  }
+  setupAPP() {
+    cart = Storage.getCart();
+    this.setCartValues(cart);
+    this.populate(cart);
+
+    cartBtn.addEventListener('click', this.showCart);
+    closeCartBtn.addEventListener('click', this.hideCart);
+  }
+  populate(cart) {
+    cart.forEach((item) => this.addCartItem(item));
+  }
+  hideCart() {
+    cartOverlay.classList.remove('transparentBcg');
+    cartDOM.classList.remove('showCart');
+  }
 }
 
 // local storage
@@ -117,11 +164,20 @@ class Storage {
     let products = JSON.parse(localStorage.getItem('products'));
     return products.find((product) => product.id === id);
   }
+  static getCart() {
+    return localStorage.getItem('cart')
+      ? JSON.parse(localStorage.getItem('cart'))
+      : [];
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const ui = new UI();
   const products = new Products();
+
+  // setup app
+  ui.setupAPP();
+
   // get all products
   products
     .getProduct()
