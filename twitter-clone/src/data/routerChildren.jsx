@@ -12,43 +12,43 @@ import Profile from '~/pages/profile'
 const routerChildrenData = [
   {
     index: true,
-    element: <Home/>,
+    element: <Home />,
   },
   {
     path: 'explore',
-    element: <Explore/>,
+    element: <Explore />,
   },
   {
     path: 'notifications',
-    element: <Notifications/>,
+    element: <Notifications />,
   },
   {
     path: 'messages',
-    element: <Messages/>,
+    element: <Messages />,
   },
   {
     path: 'lists',
-    element: <Lists/>,
+    element: <Lists />,
   },
   {
     path: 'bookmarks',
-    element: <Bookmarks/>,
+    element: <Bookmarks />,
   },
   {
     path: 'communities',
-    element: <Communities/>,
+    element: <Communities />,
   },
   {
     path: 'premium',
-    element: <Premium/>,
+    element: <Premium />,
   },
   {
-    path: 'profile',
-    element: <Profile/>,
+    path: ':slug',
+    element: <Profile />,
   },
   {
     path: '*',
-    element: <NotFound/>,
+    element: <NotFound />,
   },
 ]
 
