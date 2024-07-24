@@ -19,7 +19,7 @@ const MoreButton = () => {
             <span className="ml-5 mr-4">More</span>
           </div>
         </Popover.Button>
-        <Popover.Panel className="absolute bottom-0 left-0 shadow-popover bg-black w-[318px] rounded-xl overflow-hidden">
+        <Popover.Panel className="absolute bottom-0 left-0 shadow-popover bg-black w-[318px] rounded-xl overflow-hidden divide-y-2 divide-primary-divider">
           <ul className="text-xl grid justify-start grid-cols-1">
             {popoverItems.map(({ title, icon, beta }) => (
               <li key={title} className="w-full">
@@ -44,30 +44,36 @@ const MoreButton = () => {
             {disclosureItems.map(({ to, title, icon, desc }) => (
               <li key={icon} className="w-full flex-col">
                 <Disclosure>
-                  <Disclosure.Button className="h-[52px] text-base flex items-center justify-between w-full px-4 font-bold hover:bg-[#eff3f41a] transition-colors">
-                    {title}{' '}
-                    <span className="size-[18.75px]">
-                      <svg viewBox="0 0 24 24">
-                        <path
-                          fill="currentColor"
-                          d="M3.543 8.96l1.414-1.42L12 14.59l7.043-7.05 1.414 1.42L12 17.41 3.543 8.96z"
-                        />
-                      </svg>
-                    </span>
-                  </Disclosure.Button>
-                  <Disclosure.Panel className="text-gray-500 w-full">
-                    <Link
-                      to={to}
-                      className="flex w-full justify-start items-center px-3 h-11 gap-3 text-[15px] font-medium hover:bg-primary-hoverBtn transition-colors text-white"
-                    >
-                      <span className="size-[18.75px]">
-                        <svg viewBox="0 0 24 24">
-                          <path fill="currentColor" d={icon} />
-                        </svg>
-                      </span>{' '}
-                      {desc}
-                    </Link>
-                  </Disclosure.Panel>
+                  {({ open }) => (
+                    <>
+                      <Disclosure.Button className="h-[52px] text-base flex items-center justify-between w-full px-4 font-bold hover:bg-[#eff3f41a] transition-colors">
+                        {title}{' '}
+                        <span
+                          className={`size-[18.75px] ${open ? 'rotate-180 text-primary-blue-500' : ''}`}
+                        >
+                          <svg viewBox="0 0 24 24">
+                            <path
+                              fill="currentColor"
+                              d="M3.543 8.96l1.414-1.42L12 14.59l7.043-7.05 1.414 1.42L12 17.41 3.543 8.96z"
+                            />
+                          </svg>
+                        </span>
+                      </Disclosure.Button>
+                      <Disclosure.Panel className="text-gray-500 w-full">
+                        <Link
+                          to={to}
+                          className="flex w-full justify-start items-center px-3 h-11 gap-3 text-[15px] font-medium hover:bg-primary-hoverBtn transition-colors text-white"
+                        >
+                          <span className="size-[18.75px]">
+                            <svg viewBox="0 0 24 24">
+                              <path fill="currentColor" d={icon} />
+                            </svg>
+                          </span>{' '}
+                          {desc}
+                        </Link>
+                      </Disclosure.Panel>
+                    </>
+                  )}
                 </Disclosure>
               </li>
             ))}

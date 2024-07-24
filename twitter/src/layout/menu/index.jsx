@@ -1,15 +1,20 @@
 import { NavLink } from 'react-router-dom';
 import { navlinks } from '@/data/navlinks.jsx';
 import MoreButton from '@/layout/menu/MoreButton.jsx';
+import { useAccount } from '@/redux/selectors.js';
 
 const Menu = () => {
+  const account = useAccount();
   return (
-    <nav className="mt-0.5 mb-1 text-xl">
+    <nav className="mt-0.5 mb-1 text-xl" key={account}>
       <ul className="grid grid-cols-1 justify-start">
         {navlinks.map(
           ({ to, defaultIcon, isActiveIcon, notifications, pathName }) => (
-            <li key={to}>
-              <NavLink to={to} className="w-full justify-start group">
+            <li key={pathName}>
+              <NavLink
+                to={typeof to === 'function' ? to() : to}
+                className="w-full justify-start group"
+              >
                 {({ isActive }) => (
                   <div className="p-3 rounded-full flex justify-center items-center group-hover:bg-primary-hoverBtn transition-colors">
                     <span className="size-[26.25px] text-white relative">

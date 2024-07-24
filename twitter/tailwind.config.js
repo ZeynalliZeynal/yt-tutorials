@@ -8,6 +8,13 @@ export default {
           background: '#ff7a00',
           hoverBtn: '#eff3f41a',
           hoverBg: '#e66e00',
+          blue: {
+            500: '#1d9bf0',
+          },
+          divider: '#2f3336',
+        },
+        gray: {
+          500: '#71767b',
         },
       },
       boxShadow: {
